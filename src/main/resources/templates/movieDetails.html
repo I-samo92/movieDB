@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="" xmlns="www.thymeleafe.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<style>
+#table {
+	font-family: Arial, Helvetica, sans-serif;
+	border-collapse: collapse;
+	width: 100%;
+	align-content: center;
+}
+
+#table td, #table th {
+	border: 1px solid #ddd;
+	padding: 8px;
+}
+
+#table tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
+
+#table tr:hover {
+	background-color: gray;
+}
+
+#table th {
+	padding-top: 12px;
+	padding-bottom: 12px;
+	text-align: left;
+	background-color: #4CAF50;
+	color: white;
+}
+</style>
+
+<body th:each="movie :${movies}">
+<div align="center";>
+		<a href="/movies/latest"><h2 style="color: gray;" >Latest Movie</h2></a>
+		<h4 style="color: green;" th:text="' Username:   '+${user.username}">username</h4>
+	</div>
+	<h2 style="color: gray;" th:text="${movie.original_title}+ ', Detials'"> Movie Name</h2>
+	<form th:action="@{/movies/search}" method="Get">
+
+		<div align="right";>
+			<input type="text" th:name="movieName">
+			<button type="submit">Search</button>
+		</div>
+	</form>
+
+
+
+
+	<table id="table">
+		<thead style="border-bottom-style: solid border-color: black;">
+			<tr>
+				<th>Movie Poster</th>
+				<th>Movie Name</th>
+				<th>Description</th>
+				<th>Genre</th>
+
+
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td style="width: 7%"><img
+					th:src="@{'https://image.tmdb.org/t/p/w200'+${movie.poster_path}}" />
+				</td>
+				<td th:text="${movie.original_title}" style="width: 10%">Movie
+					title</td>
+				<td th:text="${movie.overview}" style="width: 60%">movie
+					Description</td>
+				<td th:text="${Genres}" style="width: 10%">Genre</td>
+				<td style="width: 3%"><a
+					th:href="@{/user-profile/add/{userId}/{movieName}(userId=${userId},movieName=${movie.original_title})}"><button
+							type="button">add to favorite</button></a></td>
+		</tbody>
+	</table>
+
+</body>
+</html>
